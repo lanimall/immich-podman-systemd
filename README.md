@@ -41,7 +41,7 @@ The containers will act as this user on the host:
 - When immich creates files in the mounted volumes, they will be owned by this user on the host.
 
 ```
-useradd -r -m -d /var/lib/immich immich
+useradd -r -m -d /var/lib/immich -s /sbin/nologin immich
 ```
 The containers and named volumes will be stored in `/var/lib/immich`.
 
@@ -62,7 +62,17 @@ sudo -u immich mkdir -p ~immich/.config/containers/systemd/immich
 sudo -u immich cp -v *.image *.container *.pod immich.env ~immich/.config/containers/systemd/immich/
 ```
 
-Start the user session, make it persistent and start the pod:
+Copy the database healthcheck file into the user's home directory:
+```
+sudo -u immich cp -v immich-database-healthcheck ~immich/
+```
+
+Then reload systemd for the user:
+```
+sudo systemctl --user -M immich@.host daemon-reload
+```
+
+As root, start the user session, make it persistent and start the pod:
 ```
 systemctl start user@$(id -u immich)
 loginctl enable-linger immich
@@ -76,7 +86,6 @@ journalctl -f
 ```
 
 The containers should start on the next boot automatically.
-
 
 # Database backup
 

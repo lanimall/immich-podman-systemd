@@ -7,7 +7,7 @@ Pod=immich.pod
 ContainerName=immich_server
 EnvironmentFile=immich.env
 Image=immich-server.image
-Volume=/path/to/immich/library:/usr/src/app/upload:z
+Volume=%h/library:/usr/src/app/upload:rw,z
 
 # If localtime is not set (e.g. Fedora CoreOS) : 
 # Volume=/usr/share/zoneinfo/Europe/Paris:/etc/localtime:ro
@@ -19,11 +19,13 @@ HealthInterval=10s
 HealthTimeout=30s
 HealthRetries=10
 Notify=healthy
+AutoUpdate=registry
 
 [Service]
 # give some time to the database to start
 ExecStartPre=sleep 30
 Restart=always
+TimeoutStartSec=120
 
 [Install]
 WantedBy=default.target
