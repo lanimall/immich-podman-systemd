@@ -1,0 +1,5 @@
+[Unit]
+Description=Immich Machine Learning Container Volume
+
+[Volume]
+Label=app=immich

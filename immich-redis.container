@@ -1,5 +1,6 @@
 [Container]
-Pod=immich.pod
+Label=app=immich
+PodmanArgs=--pod immich
 ContainerName=immich_redis
 Image=docker.io/redis:6.2-alpine@sha256:2d1463258f2764328496376f5d965f20c6a67f66ea2b06dc42af351f75248792
 HealthCmd=["/usr/local/bin/redis-cli", "ping"]
@@ -9,11 +10,11 @@ HealthTimeout=5s
 HealthRetries=5
 Notify=healthy
 AutoUpdate=registry
-Volume=immich-redis:/data
+Volume=immich-redis.volume:/data
 
 [Service]
 Restart=always
 TimeoutStartSec=90
 
 [Install]
-WantedBy=default.target
+WantedBy==multi-user.target default.target

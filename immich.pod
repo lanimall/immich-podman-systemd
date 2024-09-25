@@ -1,5 +1,0 @@
-[Pod]
-PodName=immich
-PublishPort=127.0.0.1:2283:3001
-PodmanArgs=--infra-name=immich-pod
-PodmanArgs=--security-opt=label=level:s0:c80

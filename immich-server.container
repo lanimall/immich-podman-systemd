@@ -3,7 +3,8 @@ Requires=immich-redis.service immich-database.service
 After=immich-redis.service immich-database.service 
 
 [Container]
-Pod=immich.pod
+Label=app=immich
+PodmanArgs=--pod immich
 ContainerName=immich_server
 EnvironmentFile=immich.env
 Image=immich-server.image
@@ -28,4 +29,4 @@ Restart=always
 TimeoutStartSec=120
 
 [Install]
-WantedBy=default.target
+WantedBy==multi-user.target default.target

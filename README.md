@@ -35,6 +35,23 @@ sudo systemctl daemon-reload
 
 ## rootless podman
 
+### CAVEATS NOTES:
+ - Quadlet for podman version 4.9.x does not support Pod notation
+ - Container assignment of Custom Network = might be a rootless issue, but the services fail to start because they can't find the network... even though it's there...
+ - Workaround = Create the pod manually first, with the expected params etc... and then, use the raw noation "PodmanArgs=--pod immich --network podman" in each of the services to force attachment to the pod and the default network...
+
+Create pod manually:
+
+```sh
+podman pod create --name immich --publish 127.0.0.1:2283:3001 --infra-name immich-pod --security-opt label=level:s0:c80
+==> not working
+
+podman pod create --name immich --publish 2283:3001 --infra-name immich-pod --security-opt label=level:s0:c80
+==> this is working!
+```
+
+### General setup
+
 Create a user that will run immich containers.
 The containers will act as this user on the host:
 - This user will be used when enforcing file permissions in the mounted volumes.
@@ -59,12 +76,17 @@ EOF
 Copy these files into the user's `containers/systemd` directory:
 ```
 sudo -u immich mkdir -p ~immich/.config/containers/systemd/immich
-sudo -u immich cp -v *.image *.container *.pod immich.env ~immich/.config/containers/systemd/immich/
+sudo -u immich cp -v immich* ~immich/.config/containers/systemd/immich/
 ```
 
 Copy the database healthcheck file into the user's home directory:
 ```
 sudo -u immich cp -v immich-database-healthcheck ~immich/
+```
+
+Make sure to create the local directory for volume mounts (in this case, if you leave the defaults, 3 folders in the user immich home)
+```
+sudo -u immich mkdir -p ~immich/library ~immich/database/data ~immich/database/backups
 ```
 
 Then reload systemd for the user:

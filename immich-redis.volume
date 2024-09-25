@@ -1,0 +1,5 @@
+[Unit]
+Description=Immich Redis Container Volume
+
+[Volume]
+Label=app=immich
