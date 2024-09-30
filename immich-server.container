@@ -8,7 +8,10 @@ PodmanArgs=--pod immich
 ContainerName=immich_server
 EnvironmentFile=immich.env
 Image=immich-server.image
-Volume=%h/library:/usr/src/app/upload:rw,z
+Volume=%h/data/library:/usr/src/app/upload/library:rw,z
+Volume=%h/data/upload:/usr/src/app/upload/upload:rw,z
+Volume=%h/datalocal/encoded-video:/usr/src/app/upload/encoded-video:rw,z
+Volume=%h/datalocal/thumbs:/usr/src/app/upload/thumbs:rw,z
 
 # If localtime is not set (e.g. Fedora CoreOS) : 
 # Volume=/usr/share/zoneinfo/Europe/Paris:/etc/localtime:ro
