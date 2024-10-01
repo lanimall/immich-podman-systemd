@@ -3,7 +3,7 @@ Label=app=immich
 PodmanArgs=--pod immich
 ContainerName=immich_machine_learning
 EnvironmentFile=immich.env
-Image=ghcr.io/immich-app/immich-machine-learning:v1.113.1
+Image=immich-machine-learning.image
 Volume=immich-machine-learning.volume:/cache
 
 HealthCmd=["/bin/bash", "-c", "exec 5<>/dev/tcp/127.0.0.1/3003"]
