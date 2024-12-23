@@ -10,8 +10,10 @@ EnvironmentFile=immich.env
 Image=immich-server.image
 Volume=%h/data/library:/usr/src/app/upload/library:rw,z
 Volume=%h/data/upload:/usr/src/app/upload/upload:rw,z
+Volume=%h/data/profile:/usr/src/app/upload/profile:rw,z
 Volume=%h/datalocal/encoded-video:/usr/src/app/upload/encoded-video:rw,z
 Volume=%h/datalocal/thumbs:/usr/src/app/upload/thumbs:rw,z
+Volume=%h/datalocal/backups:/usr/src/app/upload/backups:rw,z
 
 # If localtime is not set (e.g. Fedora CoreOS) : 
 # Volume=/usr/share/zoneinfo/Europe/Paris:/etc/localtime:ro
