@@ -43,10 +43,10 @@ sudo systemctl daemon-reload
 Create pod manually:
 
 ```sh
-podman pod create --name immich --publish 127.0.0.1:2283:3001 --infra-name immich-pod --security-opt label=level:s0:c80
+podman pod create --name immich --publish 127.0.0.1:2283:2283 --infra-name immich-pod --security-opt label=level:s0:c80
 ==> not working
 
-podman pod create --name immich --publish 2283:3001 --infra-name immich-pod --security-opt label=level:s0:c80
+podman pod create --name immich --publish 2283:2283 --infra-name immich-pod --security-opt label=level:s0:c80
 ==> this is working!
 ```
 
